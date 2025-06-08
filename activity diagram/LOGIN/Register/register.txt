@@ -1,0 +1,29 @@
+
+
+
+@startuml
+title Activity Diagram - Register (dengan Note Field Input)
+
+start
+:User masuk ke Form Registrasi;
+:Input Form Data User;
+note right
+Field yang diisi:
+- FullName
+- Email
+- Rumah bumn
+- Wilayah bumn
+- Email
+- Username
+- Password
+end note
+:Validasi Inputan Data;
+if (Inputs Valid?) then (Yes)
+  :Membuat user baru;
+  :Masuk ke halaman login;
+else (No)
+  :Menampilkan Pesan Error;
+endif
+stop
+
+@enduml

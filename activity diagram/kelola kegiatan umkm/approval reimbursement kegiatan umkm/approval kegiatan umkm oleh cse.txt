@@ -1,0 +1,56 @@
+@startuml
+title Activity Diagram: Approval Reimbursement Kegiatan UMKM oleh Kantor Pusat
+
+|Kantor Pusat|
+start
+:Membuka menu "Kelola Kegiatan UMKM";
+
+|System|
+:Menampilkan daftar Kegiatan UMKM dengan status "Requested" / "Diminta";
+note right
+    Informasi yang Ditampilkan di daftar (Contoh):
+    - Nama Kegiatan
+    - Waktu Kegiatan
+    - Total Anggaran (Rp)
+    - ID Aktivitas
+    - Status: "Requested"
+    - Tombol aksi "Detail Pengajuan"
+end note
+
+|Kantor Pusat|
+:Memilih salah satu Kegiatan UMKM dari daftar yang berstatus "Requested";
+:Klik tombol "Detail Pengajuan";
+
+|System|
+:Menampilkan halaman detail Kegiatan UMKM yang diajukan untuk reimbursement;
+note right
+    Menampilkan semua detail informasi kegiatan
+    (sama seperti saat pengguna generate form, read-only).
+    Termasuk link ke Nota Intern yang sudah digenerate sebelumnya.
+end note
+:Menampilkan tombol aksi di bawah detail form: "Setujui Reimbursement" dan "Tolak Reimbursement";
+
+|Kantor Pusat|
+if ("Setujui?") then (Setujui)
+    |System|
+    :Mengubah status reimbursement kegiatan menjadi "Approved" / "Disetujui";
+    :Menyimpan perubahan status ke database;
+    :Menampilkan notifikasi "Reimbursement telah disetujui";
+    :Status data berubah menjadi disetujui";
+else (Tolak)
+    |System|
+    :Menampilkan kolom input alasan penolakan (opsional);
+    |Kantor Pusat|
+    :Mengisi alasan penolakan (jika ada);
+    :Konfirmasi penolakan;
+    |System|
+    :Mengubah status reimbursement kegiatan menjadi "Declined" / "Ditolak";
+    :Menyimpan perubahan status dan alasan penolakan (jika ada) ke database;
+    :Menampilkan notifikasi "Reimbursement telah ditolak";
+endif
+
+|Kantor Pusat|
+:Kembali ke daftar Kegiatan UMKM (yang menampilkan sisa pengajuan);
+stop
+
+@enduml

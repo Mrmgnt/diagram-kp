@@ -1,0 +1,14 @@
+@startuml
+title Activity Diagram - Login
+
+start
+:Buka Website;
+:User Masukan username dan password ;
+:Validasi;
+if (Valid?) then (Yes)
+  :Diarahkan ke Dashboard;
+else (No)
+  :Menampilkan Pesan error;
+endif
+stop
+@enduml

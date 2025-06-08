@@ -1,0 +1,55 @@
+@startuml
+title Activity Diagram: Menampilkan dan Membuat Laporan
+
+|Pengguna Sistem|
+start
+:Membuka menu/halaman "Laporan";
+
+|System|
+:Menampilkan opsi jenis laporan yang tersedia dan/atau filter parameter laporan;
+note right
+  Contoh Jenis Laporan:
+  - Laporan Daftar UMKM
+  - Laporan Detail Kegiatan UMKM
+  - Laporan Status Reimbursement
+  - Laporan Aktivitas per Periode
+
+  Contoh Filter Parameter:
+  - Rentang Tanggal
+  - Status (Kegiatan/Reimbursement)
+  - Kategori UMKM/Kegiatan
+end note
+
+|Pengguna Sistem|
+:Memilih jenis laporan yang diinginkan;
+:Mengisi/memilih parameter atau filter laporan (jika ada);
+:Klik tombol "Generate Laporan" / "Tampilkan";
+
+|System|
+:Mengumpulkan data dari database sesuai jenis laporan dan parameter yang dipilih;
+:Memproses data dan menyusun laporan dalam format yang ditentukan (misal: tabel, ringkasan naratif);
+:Menampilkan hasil laporan di layar;
+:Menyediakan opsi untuk mengekspor/mengunduh laporan;
+note right
+  Opsi Ekspor:
+  - PDF
+  - Excel (CSV/XLSX)
+  - Cetak langsung
+end note
+
+|Pengguna Sistem|
+:Melihat laporan yang ditampilkan;
+if (Ingin mengunduh/mengekspor laporan?) then (Ya)
+  :Memilih format ekspor (misal: PDF);
+  :Klik tombol "Unduh" / "Ekspor";
+  |System|
+  :Memproses dan menyediakan file laporan dalam format yang dipilih untuk diunduh;
+  |Pengguna Sistem|
+  :Mengunduh file laporan;
+else (Tidak/Selesai Melihat)
+  :Menutup tampilan laporan atau kembali ke menu laporan;
+endif
+
+stop
+
+@enduml

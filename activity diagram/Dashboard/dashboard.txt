@@ -1,0 +1,32 @@
+@startuml
+title Activity Diagram: Menampilkan Dashboard
+
+|Pengguna Sistem|
+start
+:Membuka menu/halaman "Dashboard";
+
+|System|
+:Mengumpulkan data agregat terkini;
+note right
+  Contoh data yang dikumpulkan:
+  - Jumlah total UMKM Terdaftar
+  - Jumlah total Kegiatan UMKM
+  - Jumlah Kegiatan berdasarkan Status (misal: Selesai, Berjalan)
+  - Ringkasan status Reimbursement (misal: Diminta, Disetujui, Ditolak)
+end note
+:Memproses dan mengolah data untuk visualisasi;
+:Menampilkan halaman Dashboard dengan berbagai komponen visual;
+note right
+  Contoh komponen Dashboard:
+  - Kartu statistik (KPI)
+  - Grafik (batang, lingkaran, garis)
+  - Tabel ringkasan
+end note
+
+|Pengguna Sistem|
+:Melihat informasi dan visualisasi data di Dashboard;
+:Melakukan interaksi dengan elemen dashboard (misalnya filter tanggal, klik pada grafik untuk detail - opsional);
+
+stop
+
+@enduml

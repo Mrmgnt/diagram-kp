@@ -1,0 +1,46 @@
+@startuml
+title Activity Diagram: Tambah Data UMKM
+
+|Admin/Pengguna Sistem|
+start
+:Memilih opsi "Tambah UMKM";
+
+|System|
+:Menampilkan form pendaftaran UMKM kosong;
+note right
+    Input Fields (sesuai gambar image_df1ad1.png):
+    - Nama UMKM
+    - Rumah BUMN
+    - Cabang
+    - Nama Brand/Merk
+    - Terdaftar HAKI/Tidak
+    - Nama Usaha
+    - Bidang Usaha
+    - Tipe Usaha
+    - Jenis Usaha
+    - Provinsi
+    - Kabupaten/Kota
+    - Kecamatan
+    - Kode Pos
+    - Alamat Lengkap
+    - Nama Pemilik
+    - No. Telp/HP Pemilik
+end note
+
+|Admin/Pengguna Sistem|
+:Mengisi data pada form pendaftaran UMKM;
+:Klik tombol "Simpan";
+
+|System|
+if (Validasi data berhasil?) then (Ya)
+    :Menyimpan data UMKM baru ke database;
+    :Menampilkan notifikasi "Data UMKM berhasil ditambahkan";
+else (Tidak)
+    :Menampilkan pesan error validasi;
+    |Admin/Pengguna Sistem|
+    :Memperbaiki isian form;
+    |System|
+    :Kembali ke proses validasi data;
+endif
+stop
+@enduml
