@@ -1,69 +1,35 @@
 @startuml
 title Activity Diagram: Generate Form Reimbursement Kegiatan UMKM
 
-|Admin/Pengguna Sistem|
+|Pengelola|
 start
-:Diasumsikan pengguna sudah berada di halaman daftar Kegiatan UMKM;
-note right
-    Informasi yang Ditampilkan di daftar (Contoh):
-    - Nama Kegiatan
-    - Waktu Kegiatan (Tanggal, Jam)
-    - Jenis Kegiatan
-    - Total Anggaran (Rp)
-    - ID Aktivitas
-    - Status reimbursement
-    - tombol aksi untuk lihat detail data
-    - (diminta/belum reimburse/disetujui)
-end note
-:klik logo detail dari salah satu daftar Kegiatan UMKM;
+:Diasumsikan pengguna sudah berada di
+halaman daftar Kegiatan UMKM;
+:klik logo detail dari salah satu
+daftar Kegiatan UMKM;
 |System|
-:Menampilkan halaman detail Kegiatan UMKM (semua informasi read-only);
-note right
-    Informasi yang Ditampilkan (Contoh):
-    - Nama Kegiatan
-    - Waktu Kegiatan (Tanggal, Jam)
-    - Jenis Kegiatan
-    - Kategori Kegiatan
-    - Daftar UMKM yang Mengikuti
-    - Lokasi
-    - Narasumber/Pemateri
-    - Instansi Narasumber/Pemateri
-    - Jumlah Peserta
-    - Total Anggaran (Rp)
-    - Link/View Dokumentasi
-    - Link Media Sosial
-    - Link/View Daftar Hadir
-    - Catatan Kegiatan
-    - ID Aktivitas
-end note
-:Klik tombol/opsi "Generate Form Reimbursement" untuk kegiatan yang dipilih;
+:Menampilkan halaman detail
+Kegiatan UMKM (semua informasi read-only);
+|System|
+if(statusnya requested?) then (ya)
+:Menampilkan tombol/opsi 
+"Generate Form Reimbursement" 
+untuk kegiatan yang statusnya requested;
+|Pengelola|
+:Klik tombol "Generate Reimbursement";
 
 |System|
-:Menampilkan pilihan format file output untuk Nota Intern (misalnya: Pilihan Radio Button atau Dropdown);
-note right
-  Pilihan Format:
-  - Dokumen Word (.docx)
-  - Dokumen PDF (.pdf)
-end note
+    :Membuat file "Nota Intern" dalam format 
+    Dokumen Word (.docx) dan 
+    PDF berdasarkan data tersebut;
 
-|Admin/Pengguna Sistem|
-:Memilih format file yang diinginkan (Word atau PDF);
-:Klik tombol "Generate";
-
-|System|
-if (Format yang dipilih adalah Word?) then (Word)
-    :Mengumpulkan data dari Kegiatan UMKM yang dipilih;
-    :Membuat file "Nota Intern" dalam format Dokumen Word (.docx) berdasarkan data tersebut;
-    :Menyediakan file Dokumen Word untuk diunduh pengguna;
-else (PDF)
-    :Mengumpulkan data dari Kegiatan UMKM yang dipilih;
-    :Membuat file "Nota Intern" dalam format Dokumen PDF (.pdf) berdasarkan data tersebut;
-    :Menyediakan file Dokumen PDF untuk diunduh pengguna;
-endif
-
-|Admin/Pengguna Sistem|
+|Pengelola|
 :Mengunduh file Nota Intern yang telah digenerate;
-:Status data kegiatan berubah menjadi diminta atau Requested;
+:Status data kegiatan berubah
+menjadi diminta atau Requested;
+else(tidak)
+
+endif
 stop
 
 @enduml

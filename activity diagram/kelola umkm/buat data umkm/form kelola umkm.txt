@@ -1,0 +1,20 @@
+:Menampilkan form pendaftaran UMKM kosong;
+note right
+    Input Fields (sesuai gambar image_df1ad1.png):
+    - Nama UMKM
+    - Rumah BUMN
+    - Cabang
+    - Nama Brand/Merk
+    - Terdaftar HAKI/Tidak
+    - Nama Usaha
+    - Bidang Usaha
+    - Tipe Usaha
+    - Jenis Usaha
+    - Provinsi
+    - Kabupaten/Kota
+    - Kecamatan
+    - Kode Pos
+    - Alamat Lengkap
+    - Nama Pemilik
+    - No. Telp/HP Pemilik
+end note

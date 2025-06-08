@@ -1,0 +1,13 @@
+note right
+    Informasi yang Ditampilkan di daftar (Contoh):
+    - Nama Kegiatan
+    - Waktu Kegiatan
+    - Total Anggaran (Rp)
+    - ID Aktivitas
+    - Status: "Requested"
+    - Tombol aksi "Detail Pengajuan"
+end note
+
+
+
+

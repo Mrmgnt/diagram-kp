@@ -1,0 +1,31 @@
+@startuml
+title Activity Diagram: Edit Data UMKM
+
+|Pengelola|
+start
+:Diasumsikan berada di halaman daftar UMKM;
+:Memilih salah satu UMKM dari daftar;
+:Klik tombol "Edit";
+
+|System|
+:Menampilkan form edit dengan
+data UMKM yang telah terisi;
+
+|Pengelola|
+:Mengubah data pada form;
+:Klik tombol "Update";
+
+|System|
+if (Apakah data valid?) then (Ya)
+  :Memperbarui data UMKM di database;
+  :Menampilkan notifikasi
+  "Data berhasil diperbarui";
+  :Kembali ke halaman daftar UMKM;
+else (Tidak)
+  :Menampilkan notifikasi error validasi;
+  :Form edit tetap ditampilkan
+  dengan pesan error;
+endif
+stop
+
+@enduml

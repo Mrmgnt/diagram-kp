@@ -1,44 +1,35 @@
 @startuml
 title Activity Diagram: Tambah Data Kegiatan UMKM
 
-|Admin/Pengguna Sistem|
+|Pengelola|
 start
 :Memilih opsi "Tambah Kegiatan Baru";
 
 |System|
-:Menampilkan form tambah kegiatan/kegiatan kosong;
-note right
-    Input Fields (sesuai referensi form kegiatan):
-    - Nama kegiatan
-    - Waktu kegiatan (Tanggal, Jam)
-    - Jenis kegiatan
-    - UMKM yang Mengikuti (pilihan dari daftar UMKM)
-    - Lokasi
-    - Narasumber/Pemateri
-    - Instansi Narasumber/Pemateri
-    - Jumlah Peserta
-    - Total Anggaran (Rp)
-    - Upload Dokumentasi (opsional)
-    - Link Media Sosial (opsional)
-    - Upload Daftar Hadir (opsional)
-    - Catatan kegiatan (opsional)
-    - ID Aktivitas (bisa otomatis atau input)
-end note
+:Menampilkan form tambah 
+kegiatan/kegiatan kosong;
 
-|Admin/Pengguna Sistem|
+|Pengelola|
 :Mengisi semua data wajib pada form tambah kegiatan;
 :Mengisi data opsional jika ada;
 :Klik tombol "Simpan";
 
 |System|
-if (Validasi data berhasil?) then (Ya)
-    :Menyimpan data kegiatan/kegiatan baru ke database;
-    :Menampilkan notifikasi "Data Kegiatan UMKM berhasil ditambahkan";
+if (Validasi  berhasil?) then (Ya)
+    :Menyimpan data kegiatan 
+    baru ke database;
+    :Menampilkan notifikasi
+    "Data Kegiatan UMKM
+    berhasil ditambahkan";
+    
 else (Tidak)
-    :Menampilkan pesan error validasi pada form;
-    |Admin/Pengguna Sistem|
-    :Memperbaiki isian data pada form;
+    :Menampilkan pesan 
+    error validasi pada form;
+    |Pengelola|
+    :Memperbaiki isian 
+    data pada form;
 endif
+
 stop
 
 @enduml

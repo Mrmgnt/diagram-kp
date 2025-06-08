@@ -1,0 +1,17 @@
+note right
+    Input Fields (sesuai referensi form kegiatan):
+    - Nama kegiatan
+    - Waktu kegiatan (Tanggal, Jam)
+    - Jenis kegiatan
+    - UMKM yang Mengikuti (pilihan dari daftar UMKM)
+    - Lokasi
+    - Narasumber/Pemateri
+    - Instansi Narasumber/Pemateri
+    - Jumlah Peserta
+    - Total Anggaran (Rp)
+    - Upload Dokumentasi (opsional)
+    - Link Media Sosial (opsional)
+    - Upload Daftar Hadir (opsional)
+    - Catatan kegiatan (opsional)
+    - ID Aktivitas (bisa otomatis atau input)
+end note

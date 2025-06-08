@@ -1,0 +1,33 @@
+@startuml
+title Activity Diagram: Hapus Data UMKM
+
+|Pengelola|
+start
+:Diasumsikan berada 
+di halaman daftar UMKM;
+:Memilih salah satu UMKM dari daftar;
+:Klik tombol "Hapus";
+
+|System|
+:Menampilkan dialog konfirmasi
+"Anda yakin ingin hapus data ini?";
+|Pengelola|
+:klik tombol konfirmasi;
+|System|
+if (Konfirmasi "Ya"?) then (Ya)
+  |System|
+  :Menghapus data UMKM
+  dari database;
+  :Menampilkan notifikasi
+  "Data berhasil dihapus";
+  :Memperbarui daftar UMKM;
+else (Tidak / Batal)
+  :Membatalkan proses
+  penghapusan;
+  :Dialog konfirmasi ditutup;
+  :Kembali ke daftar UMKM;
+endif
+stop
+
+
+@enduml
