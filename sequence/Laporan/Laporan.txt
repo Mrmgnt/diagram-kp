@@ -1,0 +1,50 @@
+@startuml
+!theme materia
+
+title Sequence Diagram - Menampilkan Laporan (Pola MVC)
+hide footbox
+
+actor "Pengguna Sistem" as Pengguna
+boundary "View" as View
+control "Controller" as Controller
+entity "Model" as Model
+
+Pengguna -> View: Membuka menu/halaman "Laporan"
+activate View
+View --> Pengguna: Menampilkan opsi jenis laporan & filter
+deactivate View
+
+Pengguna -> View: Memilih jenis laporan & mengisi parameter/filter
+activate View
+
+View -> Controller: Minta generate laporan (dengan parameter)
+activate Controller
+
+Controller -> Model: Panggil fungsi getLaporanData(parameter)
+activate Model
+Model -> Model: Mengumpulkan & memproses data dari database
+Model --> Controller: Mengembalikan data laporan yang sudah jadi
+deactivate Model
+
+Controller --> View: Meneruskan data laporan
+deactivate Controller
+
+View --> Pengguna: Menampilkan hasil laporan di layar & opsi ekspor
+deactivate View
+
+alt Ingin mengunduh laporan
+    Pengguna -> View: Klik tombol "Unduh" / "Ekspor"
+    activate View
+    
+    View -> Controller: Minta ekspor laporan (data yang sama)
+    activate Controller
+    
+    Controller -> Controller: Membuat file laporan (misal: PDF, Excel)
+    Controller --> View: Mengirim file yang telah digenerate
+    deactivate Controller
+    
+    View --> Pengguna: Menyediakan file laporan untuk diunduh
+    deactivate View
+end
+
+@enduml

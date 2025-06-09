@@ -1,0 +1,42 @@
+@startuml
+!theme materia
+
+title Sequence Diagram - Menampilkan Dashboard (Pola MVC)
+hide footbox
+
+actor "Pengguna Sistem" as Pengguna
+boundary "View" as View
+control "Controller" as Controller
+entity "Model" as Model
+
+Pengguna -> View: Membuka menu/halaman "Dashboard"
+activate View
+
+View -> Controller: Minta data untuk dashboard
+activate Controller
+
+Controller -> Model: Panggil fungsi getDashboardData()
+activate Model
+Model -> Model: Mengambil & mengolah data dari berbagai sumber
+Model --> Controller: Mengembalikan data yang sudah diproses
+deactivate Model
+
+Controller --> View: Meneruskan data dashboard
+deactivate Controller
+
+View --> Pengguna: Menampilkan halaman Dashboard dengan visualisasi data
+deactivate View
+
+Pengguna -> View: Berinteraksi dengan filter (contoh: rentang tanggal)
+activate View
+
+View -> Controller: Minta data dashboard dengan filter baru
+activate Controller
+' ... proses pengambilan data dengan filter baru akan berulang ...'
+Controller --> View: Meneruskan data yang sudah difilter
+deactivate Controller
+
+View --> Pengguna: Memperbarui visualisasi data di dashboard
+deactivate View
+
+@enduml

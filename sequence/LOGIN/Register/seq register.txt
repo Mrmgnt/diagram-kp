@@ -1,0 +1,49 @@
+@startuml
+!theme materia
+
+title Sequence Diagram - Proses Registrasi (Pola MVC)
+hide footbox
+
+actor Pengguna
+boundary "View" as View
+control "Controller" as Controller
+entity "Model" as Model
+
+Pengguna -> View: Mengakses halaman registrasi
+activate View
+View --> Pengguna: Menampilkan form registrasi
+deactivate View
+
+Pengguna -> View: Mengisi data form dan klik "Register"
+activate View
+
+View -> Controller: Meneruskan data registrasi
+activate Controller
+
+Controller -> Model: Panggil fungsi validasi data(data_form)
+activate Model
+Model -> Model: Melakukan validasi (format, duplikasi email/username)
+Model --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
+deactivate Model
+
+alt Data Valid
+    Controller -> Model: Panggil fungsi buatUserBaru(data_form)
+    activate Model
+    Model -> Model: Menyimpan data pengguna baru ke database
+    Model --> Controller: Konfirmasi pengguna telah dibuat
+    deactivate Model
+    
+    Controller --> View: Respon sukses, arahkan ke halaman login
+    deactivate Controller
+    
+    View --> Pengguna: Menampilkan halaman Login
+    deactivate View
+else Data Tidak Valid
+    Controller --> View: Respon gagal dengan pesan error spesifik
+    deactivate Controller
+    
+    View --> Pengguna: Menampilkan pesan error di form registrasi
+    deactivate View
+end
+
+@enduml

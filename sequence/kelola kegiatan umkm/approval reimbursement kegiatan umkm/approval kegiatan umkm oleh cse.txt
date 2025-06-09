@@ -1,0 +1,80 @@
+@startuml
+!theme materia
+
+title Sequence Diagram - Approval Reimbursement Kegiatan UMKM (Pola MVC)
+hide footbox
+
+actor "Kantor Pusat" as Pengguna
+boundary "View" as View
+control "Controller" as Controller
+entity "Model" as Model
+
+Pengguna -> View: Membuka menu "Kelola Kegiatan UMKM"
+activate View
+
+View -> Controller: Minta daftar kegiatan (status "Requested")
+activate Controller
+
+Controller -> Model: Panggil fungsi getKegiatanByStatus("Requested")
+activate Model
+Model -> Model: Mengambil daftar kegiatan dari database
+Model --> Controller: Mengembalikan daftar kegiatan
+deactivate Model
+
+Controller --> View: Meneruskan daftar kegiatan
+deactivate Controller
+
+View --> Pengguna: Menampilkan daftar kegiatan
+deactivate View
+
+Pengguna -> View: Memilih kegiatan & klik "Detail Pengajuan"
+activate View
+
+View -> Controller: Minta detail kegiatan (berdasarkan ID)
+activate Controller
+Controller -> Model: Panggil fungsi getDetailKegiatan(ID)
+activate Model
+Model --> Controller: Mengembalikan detail kegiatan
+deactivate Model
+Controller --> View: Meneruskan detail kegiatan
+deactivate Controller
+
+View --> Pengguna: Menampilkan detail & tombol aksi ("Setujui", "Tolak")
+deactivate View
+
+alt "Setujui" diklik
+    Pengguna -> View: Klik tombol "Setujui"
+    activate View
+    View -> Controller: Minta persetujuan kegiatan (ID)
+    activate Controller
+    Controller -> Model: Panggil fungsi updateStatus(ID, "Approved")
+    activate Model
+    Model -> Model: Memperbarui status di database
+    Model --> Controller: Konfirmasi status diperbarui
+    deactivate Model
+    Controller --> View: Respon sukses
+    deactivate Controller
+    View --> Pengguna: Notifikasi "Reimbursement telah disetujui" & perbarui daftar
+    deactivate View
+else "Tolak" diklik
+    Pengguna -> View: Klik tombol "Tolak"
+    activate View
+    View --> Pengguna: Menampilkan input alasan penolakan
+    deactivate View
+
+    Pengguna -> View: Mengisi alasan & konfirmasi penolakan
+    activate View
+    View -> Controller: Minta penolakan kegiatan (ID, alasan)
+    activate Controller
+    Controller -> Model: Panggil fungsi updateStatus(ID, "Declined", alasan)
+    activate Model
+    Model -> Model: Memperbarui status & menyimpan alasan di database
+    Model --> Controller: Konfirmasi status diperbarui
+    deactivate Model
+    Controller --> View: Respon sukses
+    deactivate Controller
+    View --> Pengguna: Notifikasi "Reimbursement telah ditolak" & perbarui daftar
+    deactivate View
+end
+
+@enduml

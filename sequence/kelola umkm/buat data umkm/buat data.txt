@@ -1,0 +1,49 @@
+@startuml
+!theme materia
+
+title Sequence Diagram - Tambah Data UMKM (Pola MVC)
+hide footbox
+
+actor "Pengelola bumn" as Pengguna
+boundary "View" as View
+control "Controller" as Controller
+entity "Model" as Model
+
+Pengguna -> View: Memilih opsi "Tambah UMKM"
+activate View
+View --> Pengguna: Menampilkan form pendaftaran UMKM
+deactivate View
+
+Pengguna -> View: Mengisi data form & klik "Simpan"
+activate View
+
+View -> Controller: Meneruskan data UMKM baru
+activate Controller
+
+Controller -> Model: Panggil fungsi validasi(data_umkm)
+activate Model
+Model -> Model: Melakukan validasi data form
+Model --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
+deactivate Model
+
+alt Data Valid
+    Controller -> Model: Panggil fungsi simpanDataUMKM(data_umkm)
+    activate Model
+    Model -> Model: Menyimpan data UMKM baru ke database
+    Model --> Controller: Konfirmasi data telah disimpan
+    deactivate Model
+    
+    Controller --> View: Respon sukses
+    deactivate Controller
+    
+    View --> Pengguna: Menampilkan notifikasi "Data UMKM berhasil ditambahkan"
+    deactivate View
+else Data Tidak Valid
+    Controller --> View: Respon gagal dengan pesan error validasi
+    deactivate Controller
+    
+    View --> Pengguna: Menampilkan pesan error di form
+    deactivate View
+end
+
+@enduml
