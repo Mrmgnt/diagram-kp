@@ -1,0 +1,39 @@
+@startuml
+|Rumah BUMN|
+start
+:Daftarkan UMKM 
+ke Rumah BUMN;
+:Mulai membuat list 
+aktivitas UMKM di word;
+:Tawarkan program aktivitas
+         ke UMKM via telfon 
+               atau email;
+:Adakan aktivitas atau
+    kegiatan UMKM;
+: Dokumentasikan kegiatan atau aktivitas
+    dan mengambil photo dokumentasi;
+: Catat pengeluaran dan dokumentasi
+                aktivitas ke word;
+: Simpan ke dalam 
+dokumentasi kegiatan;
+: Buat permohonan 
+Reimbursement;
+:Print out permohonan 
+reimbursement;
+note right: Informasi berisi:\n- Kegiatan\n- Nominal\n- Proses kegiatan
+:Kirim via Email atau 
+Post ke Kantor Pusat;
+
+|Kantor Pusat BNI (Divisi CSE)|
+if (Diterima via email?) then (Ya)
+  :Print laporan dan dokumen;
+else (Tidak)
+  :Terima surat langsung;
+endif
+:Review laporan dokumentasi dan\ncatatan pengeluaran;
+:Divisi CSE buat form\npermohonan reimbursement;
+note right: Contoh kegiatan:\n- Pelatihan workshop\n- Bazar/pameran produk UMKM
+:Print form  penerimaan reimbursement;
+
+stop
+@enduml
