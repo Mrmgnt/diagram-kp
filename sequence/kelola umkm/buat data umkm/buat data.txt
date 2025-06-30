@@ -5,45 +5,45 @@ title Sequence Diagram - Tambah Data UMKM (Pola MVC)
 hide footbox
 
 actor "Pengelola bumn" as Pengguna
-boundary "View" as View
+boundary "Halaman_kelola_UMKM" as Halaman_kelola_UMKM
 control "Controller" as Controller
-entity "Model" as Model
+entity "Entity" as Entity
 
-Pengguna -> View: Memilih opsi "Tambah UMKM"
-activate View
-View --> Pengguna: Menampilkan form pendaftaran UMKM
-deactivate View
+Pengguna -> Halaman_kelola_UMKM: Memilih opsi "Tambah UMKM"
+activate Halaman_kelola_UMKM
+Halaman_kelola_UMKM --> Pengguna: Menampilkan form pendaftaran UMKM
+deactivate Halaman_kelola_UMKM
 
-Pengguna -> View: Mengisi data form & klik "Simpan"
-activate View
+Pengguna -> Halaman_kelola_UMKM: Mengisi data form & klik "Simpan"
+activate Halaman_kelola_UMKM
 
-View -> Controller: Meneruskan data UMKM baru
+Halaman_kelola_UMKM -> Controller: Meneruskan data UMKM baru
 activate Controller
 
-Controller -> Model: Panggil fungsi validasi(data_umkm)
-activate Model
-Model -> Model: Melakukan validasi data form
-Model --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
-deactivate Model
+Controller -> Entity: Panggil fungsi validasi(data_umkm)
+activate Entity
+Entity -> Entity: Melakukan validasi data form
+Entity --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
+deactivate Entity
 
 alt Data Valid
-    Controller -> Model: Panggil fungsi simpanDataUMKM(data_umkm)
-    activate Model
-    Model -> Model: Menyimpan data UMKM baru ke database
-    Model --> Controller: Konfirmasi data telah disimpan
-    deactivate Model
+    Controller -> Entity: Panggil fungsi simpanDataUMKM(data_umkm)
+    activate Entity
+    Entity -> Entity: Menyimpan data UMKM baru ke database
+    Entity --> Controller: Konfirmasi data telah disimpan
+    deactivate Entity
     
-    Controller --> View: Respon sukses
+    Controller --> Halaman_kelola_UMKM: Respon sukses
     deactivate Controller
     
-    View --> Pengguna: Menampilkan notifikasi "Data UMKM berhasil ditambahkan"
-    deactivate View
+    Halaman_kelola_UMKM --> Pengguna: Menampilkan notifikasi "Data UMKM berhasil ditambahkan"
+    deactivate Halaman_kelola_UMKM
 else Data Tidak Valid
-    Controller --> View: Respon gagal dengan pesan error validasi
+    Controller --> Halaman_kelola_UMKM: Respon gagal dengan pesan error validasi
     deactivate Controller
     
-    View --> Pengguna: Menampilkan pesan error di form
-    deactivate View
+    Halaman_kelola_UMKM --> Pengguna: Menampilkan pesan error di form
+    deactivate Halaman_kelola_UMKM
 end
 
 @enduml

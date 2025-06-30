@@ -5,59 +5,59 @@ title Sequence Diagram - Edit Data UMKM (Pola MVC)
 hide footbox
 
 actor "Pengelola" as Pengguna
-boundary "View" as View
+boundary "Halaman_kelola_UMKM" as Halaman_kelola_UMKM
 control "Controller" as Controller
-entity "Model" as Model
+entity "Entity" as Entity
 
-Pengguna -> View: Memilih UMKM & klik tombol "Edit"
-activate View
+Pengguna -> Halaman_kelola_UMKM: Memilih UMKM & klik tombol "Edit"
+activate Halaman_kelola_UMKM
 
-View -> Controller: Minta data UMKM untuk diedit (berdasarkan ID)
+Halaman_kelola_UMKM -> Controller: Minta data UMKM untuk diedit (berdasarkan ID)
 activate Controller
 
-Controller -> Model: Panggil fungsi getDataUMKM(ID)
-activate Model
+Controller -> Entity: Panggil fungsi getDataUMKM(ID)
+activate Entity
 
-Model -> Model: Mengambil data UMKM dari database
-Model --> Controller: Mengembalikan data UMKM
-deactivate Model
+Entity -> Entity: Mengambil data UMKM dari database
+Entity --> Controller: Mengembalikan data UMKM
+deactivate Entity
 
-Controller --> View: Meneruskan data UMKM ke View
+Controller --> Halaman_kelola_UMKM: Meneruskan data UMKM ke Halaman_kelola_UMKM
 deactivate Controller
 
-View --> Pengguna: Menampilkan form dengan data UMKM yang telah terisi
-deactivate View
+Halaman_kelola_UMKM --> Pengguna: Menampilkan form dengan data UMKM yang telah terisi
+deactivate Halaman_kelola_UMKM
 
-Pengguna -> View: Mengubah data pada form & klik "Update"
-activate View
+Pengguna -> Halaman_kelola_UMKM: Mengubah data pada form & klik "Update"
+activate Halaman_kelola_UMKM
 
-View -> Controller: Meneruskan data UMKM yang telah diubah
+Halaman_kelola_UMKM -> Controller: Meneruskan data UMKM yang telah diubah
 activate Controller
 
-Controller -> Model: Panggil fungsi validasi(data_umkm_diubah)
-activate Model
-Model -> Model: Melakukan validasi data form
-Model --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
-deactivate Model
+Controller -> Entity: Panggil fungsi validasi(data_umkm_diubah)
+activate Entity
+Entity -> Entity: Melakukan validasi data form
+Entity --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
+deactivate Entity
 
 alt Data Valid
-    Controller -> Model: Panggil fungsi updateDataUMKM(data_umkm_diubah)
-    activate Model
-    Model -> Model: Memperbarui data UMKM di database
-    Model --> Controller: Konfirmasi data telah diperbarui
-    deactivate Model
+    Controller -> Entity: Panggil fungsi updateDataUMKM(data_umkm_diubah)
+    activate Entity
+    Entity -> Entity: Memperbarui data UMKM di database
+    Entity --> Controller: Konfirmasi data telah diperbarui
+    deactivate Entity
     
-    Controller --> View: Respon sukses
+    Controller --> Halaman_kelola_UMKM: Respon sukses
     deactivate Controller
     
-    View --> Pengguna: Notifikasi "Data berhasil diperbarui" & kembali ke halaman daftar
-    deactivate View
+    Halaman_kelola_UMKM --> Pengguna: Notifikasi "Data berhasil diperbarui" & kembali ke halaman daftar
+    deactivate Halaman_kelola_UMKM
 else Data Tidak Valid
-    Controller --> View: Respon gagal dengan pesan error validasi
+    Controller --> Halaman_kelola_UMKM: Respon gagal dengan pesan error validasi
     deactivate Controller
     
-    View --> Pengguna: Menampilkan pesan error di form edit
-    deactivate View
+    Halaman_kelola_UMKM --> Pengguna: Menampilkan pesan error di form edit
+    deactivate Halaman_kelola_UMKM
 end
 
 @enduml

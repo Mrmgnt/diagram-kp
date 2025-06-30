@@ -5,38 +5,38 @@ title Sequence Diagram - Hapus Data UMKM (Pola MVC)
 hide footbox
 
 actor "Pengelola" as Pengguna
-boundary "View" as View
+boundary "Halaman_kelola_UMKM" as Halaman_kelola_UMKM
 control "Controller" as Controller
-entity "Model" as Model
+entity "Entity" as Entity
 
-Pengguna -> View: Memilih UMKM & klik tombol "Hapus"
-activate View
+Pengguna -> Halaman_kelola_UMKM: Memilih UMKM & klik tombol "Hapus"
+activate Halaman_kelola_UMKM
 
-View --> Pengguna: Menampilkan dialog konfirmasi "Anda yakin?"
+Halaman_kelola_UMKM --> Pengguna: Menampilkan dialog konfirmasi "Anda yakin?"
 
 alt Konfirmasi "Ya"
-    Pengguna -> View: Klik tombol konfirmasi "Ya"
+    Pengguna -> Halaman_kelola_UMKM: Klik tombol konfirmasi "Ya"
     
-    View -> Controller: Minta hapus data UMKM (berdasarkan ID)
+    Halaman_kelola_UMKM -> Controller: Minta hapus data UMKM (berdasarkan ID)
     activate Controller
 
-    Controller -> Model: Panggil fungsi hapusDataUMKM(ID)
-    activate Model
+    Controller -> Entity: Panggil fungsi hapusDataUMKM(ID)
+    activate Entity
     
-    Model -> Model: Menghapus data UMKM dari database
-    Model --> Controller: Konfirmasi data telah dihapus
-    deactivate Model
+    Entity -> Entity: Menghapus data UMKM dari database
+    Entity --> Controller: Konfirmasi data telah dihapus
+    deactivate Entity
     
-    Controller --> View: Respon sukses
+    Controller --> Halaman_kelola_UMKM: Respon sukses
     deactivate Controller
     
-    View --> Pengguna: Notifikasi "Data berhasil dihapus" & perbarui daftar
-    deactivate View
+    Halaman_kelola_UMKM --> Pengguna: Notifikasi "Data berhasil dihapus" & perbarui daftar
+    deactivate Halaman_kelola_UMKM
 else Konfirmasi "Tidak / Batal"
-    Pengguna -> View: Klik tombol "Tidak / Batal"
+    Pengguna -> Halaman_kelola_UMKM: Klik tombol "Tidak / Batal"
     
-    View --> Pengguna: Menutup dialog konfirmasi
-    deactivate View
+    Halaman_kelola_UMKM --> Pengguna: Menutup dialog konfirmasi
+    deactivate Halaman_kelola_UMKM
 end
 
 

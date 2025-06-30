@@ -5,46 +5,46 @@ title Sequence Diagram - Menampilkan Laporan (Pola MVC)
 hide footbox
 
 actor "Pengguna Sistem" as Pengguna
-boundary "View" as View
+boundary "Halaman_Laporan" as Halaman_Laporan
 control "Controller" as Controller
-entity "Model" as Model
+entity "Entity" as Entity
 
-Pengguna -> View: Membuka menu/halaman "Laporan"
-activate View
-View --> Pengguna: Menampilkan opsi jenis laporan & filter
-deactivate View
+Pengguna -> Halaman_Laporan: Membuka menu/halaman "Laporan"
+activate Halaman_Laporan
+Halaman_Laporan --> Pengguna: Menampilkan opsi jenis laporan & filter
+deactivate Halaman_Laporan
 
-Pengguna -> View: Memilih jenis laporan & mengisi parameter/filter
-activate View
+Pengguna -> Halaman_Laporan: Memilih jenis laporan & mengisi parameter/filter
+activate Halaman_Laporan
 
-View -> Controller: Minta generate laporan (dengan parameter)
+Halaman_Laporan -> Controller: Minta generate laporan (dengan parameter)
 activate Controller
 
-Controller -> Model: Panggil fungsi getLaporanData(parameter)
-activate Model
-Model -> Model: Mengumpulkan & memproses data dari database
-Model --> Controller: Mengembalikan data laporan yang sudah jadi
-deactivate Model
+Controller -> Entity: Panggil fungsi getLaporanData(parameter)
+activate Entity
+Entity -> Entity: Mengumpulkan & memproses data dari database
+Entity --> Controller: Mengembalikan data laporan yang sudah jadi
+deactivate Entity
 
-Controller --> View: Meneruskan data laporan
+Controller --> Halaman_Laporan: Meneruskan data laporan
 deactivate Controller
 
-View --> Pengguna: Menampilkan hasil laporan di layar & opsi ekspor
-deactivate View
+Halaman_Laporan --> Pengguna: Menampilkan hasil laporan di layar & opsi ekspor
+deactivate Halaman_Laporan
 
 alt Ingin mengunduh laporan
-    Pengguna -> View: Klik tombol "Unduh" / "Ekspor"
-    activate View
+    Pengguna -> Halaman_Laporan: Klik tombol "Unduh" / "Ekspor"
+    activate Halaman_Laporan
     
-    View -> Controller: Minta ekspor laporan (data yang sama)
+    Halaman_Laporan -> Controller: Minta ekspor laporan (data yang sama)
     activate Controller
     
     Controller -> Controller: Membuat file laporan (misal: PDF, Excel)
-    Controller --> View: Mengirim file yang telah digenerate
+    Controller --> Halaman_Laporan: Mengirim file yang telah digenerate
     deactivate Controller
     
-    View --> Pengguna: Menyediakan file laporan untuk diunduh
-    deactivate View
+    Halaman_Laporan --> Pengguna: Menyediakan file laporan untuk diunduh
+    deactivate Halaman_Laporan
 end
 
 @enduml

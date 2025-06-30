@@ -5,41 +5,41 @@ title Sequence Diagram - Proses Login (Pola MVC)
 hide footbox
 
 actor Pengguna
-boundary "View" as View
+boundary "Halaman_Login" as Halaman_Login
 control "Controller" as Controller
-entity "Model" as Model
+entity "Entity" as Entity
 
-Pengguna -> View: Mengakses halaman login
-activate View
-View --> Pengguna: Menampilkan halaman login
-deactivate View
+Pengguna -> Halaman_Login: Mengakses halaman login
+activate Halaman_Login
+Halaman_Login --> Pengguna: Menampilkan halaman login
+deactivate Halaman_Login
 
-Pengguna -> View: Input username & password, lalu klik login
-activate View
+Pengguna -> Halaman_Login: Input username & password, lalu klik login
+activate Halaman_Login
 
-View -> Controller: Meneruskan permintaan login (username, password)
+Halaman_Login -> Controller: Meneruskan permintaan login (username, password)
 activate Controller
 
-Controller -> Model: Panggil fungsi autentikasi(username, password)
-activate Model
+Controller -> Entity: Panggil fungsi autentikasi(username, password)
+activate Entity
 
-Model -> Model: Validasi kredensial pengguna\n(berinteraksi dengan database)
+Entity -> Entity: Validasi kredensial pengguna\n(berinteraksi dengan database)
 
-Model --> Controller: Mengembalikan hasil autentikasi (berhasil / gagal)
-deactivate Model
+Entity --> Controller: Mengembalikan hasil autentikasi (berhasil / gagal)
+deactivate Entity
 
 alt Autentikasi Berhasil
-    Controller --> View: Respon sukses, arahkan ke dashboard
+    Controller --> Halaman_Login: Respon sukses, arahkan ke dashboard
     deactivate Controller
     
-    View --> Pengguna: Menampilkan halaman Dashboard
-    deactivate View
+    Halaman_Login --> Pengguna: Menampilkan halaman Dashboard
+    deactivate Halaman_Login
 else Autentikasi Gagal
-    Controller --> View: Respon gagal dengan pesan error
+    Controller --> Halaman_Login: Respon gagal dengan pesan error
     deactivate Controller
     
-    View --> Pengguna: Menampilkan pesan "Username atau password salah"
-    deactivate View
+    Halaman_Login --> Pengguna: Menampilkan pesan "Username atau password salah"
+    deactivate Halaman_Login
 end
 
 @enduml

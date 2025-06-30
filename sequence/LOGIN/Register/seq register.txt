@@ -5,45 +5,45 @@ title Sequence Diagram - Proses Registrasi (Pola MVC)
 hide footbox
 
 actor Pengguna
-boundary "View" as View
+boundary "Halaman_Registrasi" as Halaman_Registrasi
 control "Controller" as Controller
-entity "Model" as Model
+entity "Entity" as Entity
 
-Pengguna -> View: Mengakses halaman registrasi
-activate View
-View --> Pengguna: Menampilkan form registrasi
-deactivate View
+Pengguna -> Halaman_Registrasi: Mengakses halaman registrasi
+activate Halaman_Registrasi
+Halaman_Registrasi --> Pengguna: Menampilkan form registrasi
+deactivate Halaman_Registrasi
 
-Pengguna -> View: Mengisi data form dan klik "Register"
-activate View
+Pengguna -> Halaman_Registrasi: Mengisi data form dan klik "Register"
+activate Halaman_Registrasi
 
-View -> Controller: Meneruskan data registrasi
+Halaman_Registrasi -> Controller: Meneruskan data registrasi
 activate Controller
 
-Controller -> Model: Panggil fungsi validasi data(data_form)
-activate Model
-Model -> Model: Melakukan validasi (format, duplikasi email/username)
-Model --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
-deactivate Model
+Controller -> Entity: Panggil fungsi validasi data(data_form)
+activate Entity
+Entity -> Entity: Melakukan validasi (format, duplikasi email/username)
+Entity --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
+deactivate Entity
 
 alt Data Valid
-    Controller -> Model: Panggil fungsi buatUserBaru(data_form)
-    activate Model
-    Model -> Model: Menyimpan data pengguna baru ke database
-    Model --> Controller: Konfirmasi pengguna telah dibuat
-    deactivate Model
+    Controller -> Entity: Panggil fungsi buatUserBaru(data_form)
+    activate Entity
+    Entity -> Entity: Menyimpan data pengguna baru ke database
+    Entity --> Controller: Konfirmasi pengguna telah dibuat
+    deactivate Entity
     
-    Controller --> View: Respon sukses, arahkan ke halaman login
+    Controller --> Halaman_Registrasi: Respon sukses, arahkan ke halaman login
     deactivate Controller
     
-    View --> Pengguna: Menampilkan halaman Login
-    deactivate View
+    Halaman_Registrasi --> Pengguna: Menampilkan halaman Login
+    deactivate Halaman_Registrasi
 else Data Tidak Valid
-    Controller --> View: Respon gagal dengan pesan error spesifik
+    Controller --> Halaman_Registrasi: Respon gagal dengan pesan error spesifik
     deactivate Controller
     
-    View --> Pengguna: Menampilkan pesan error di form registrasi
-    deactivate View
+    Halaman_Registrasi --> Pengguna: Menampilkan pesan error di form registrasi
+    deactivate Halaman_Registrasi
 end
 
 @enduml

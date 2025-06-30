@@ -5,38 +5,38 @@ title Sequence Diagram - Menampilkan Dashboard (Pola MVC)
 hide footbox
 
 actor "Pengguna Sistem" as Pengguna
-boundary "View" as View
+boundary "Halaman_Dashboard" as Halaman_Dashboard
 control "Controller" as Controller
-entity "Model" as Model
+entity "Entity" as Entity
 
-Pengguna -> View: Membuka menu/halaman "Dashboard"
-activate View
+Pengguna -> Halaman_Dashboard: Membuka menu/halaman "Dashboard"
+activate Halaman_Dashboard
 
-View -> Controller: Minta data untuk dashboard
+Halaman_Dashboard -> Controller: Minta data untuk dashboard
 activate Controller
 
-Controller -> Model: Panggil fungsi getDashboardData()
-activate Model
-Model -> Model: Mengambil & mengolah data dari berbagai sumber
-Model --> Controller: Mengembalikan data yang sudah diproses
-deactivate Model
+Controller -> Entity: Panggil fungsi getDashboardData()
+activate Entity
+Entity -> Entity: Mengambil & mengolah data dari berbagai sumber
+Entity --> Controller: Mengembalikan data yang sudah diproses
+deactivate Entity
 
-Controller --> View: Meneruskan data dashboard
+Controller --> Halaman_Dashboard: Meneruskan data dashboard
 deactivate Controller
 
-View --> Pengguna: Menampilkan halaman Dashboard dengan visualisasi data
-deactivate View
+Halaman_Dashboard --> Pengguna: Menampilkan halaman Dashboard dengan visualisasi data
+deactivate Halaman_Dashboard
 
-Pengguna -> View: Berinteraksi dengan filter (contoh: rentang tanggal)
-activate View
+Pengguna -> Halaman_Dashboard: Berinteraksi dengan filter (contoh: rentang tanggal)
+activate Halaman_Dashboard
 
-View -> Controller: Minta data dashboard dengan filter baru
+Halaman_Dashboard -> Controller: Minta data dashboard dengan filter baru
 activate Controller
 ' ... proses pengambilan data dengan filter baru akan berulang ...'
-Controller --> View: Meneruskan data yang sudah difilter
+Controller --> Halaman_Dashboard: Meneruskan data yang sudah difilter
 deactivate Controller
 
-View --> Pengguna: Memperbarui visualisasi data di dashboard
-deactivate View
+Halaman_Dashboard --> Pengguna: Memperbarui visualisasi data di dashboard
+deactivate Halaman_Dashboard
 
 @enduml
