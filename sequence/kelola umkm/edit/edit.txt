@@ -1,5 +1,16 @@
 @startuml
 !theme materia
+scale max 1920 width
+skinparam defaultFontSize 40
+skinparam ParticipantPadding 30
+skinparam BoxPadding 40
+skinparam ActorPadding 20
+skinparam ActorFontSize 40
+skinparam ParticipantFontSize 40
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceLifeLineBorderColor Black
+skinparam SequenceLifeLineBorderThickness 2
+
 
 title Sequence Diagram - Edit Data UMKM (Pola MVC)
 hide footbox
@@ -9,54 +20,54 @@ boundary "Halaman_kelola_UMKM" as Halaman_kelola_UMKM
 control "Controller" as Controller
 entity "Entity" as Entity
 
-Pengguna -> Halaman_kelola_UMKM: Memilih UMKM & klik tombol "Edit"
+Pengguna -> Halaman_kelola_UMKM: Memilih UMKM &\nklik tombol "Edit"
 activate Halaman_kelola_UMKM
 
-Halaman_kelola_UMKM -> Controller: Minta data UMKM untuk diedit (berdasarkan ID)
+Halaman_kelola_UMKM -> Controller: Minta data UMKM untuk diedit\n(berdasarkan ID)
 activate Controller
 
-Controller -> Entity: Panggil fungsi getDataUMKM(ID)
+Controller -> Entity: Panggil fungsi\ngetDataUMKM(ID)
 activate Entity
 
-Entity -> Entity: Mengambil data UMKM dari database
-Entity --> Controller: Mengembalikan data UMKM
+Entity -> Entity: Mengambil data UMKM\ndari database
+Entity --> Controller: Mengembalikan\ndata UMKM
 deactivate Entity
 
-Controller --> Halaman_kelola_UMKM: Meneruskan data UMKM ke Halaman_kelola_UMKM
+Controller --> Halaman_kelola_UMKM: Meneruskan data UMKM\nke Halaman_kelola_UMKM
 deactivate Controller
 
-Halaman_kelola_UMKM --> Pengguna: Menampilkan form dengan data UMKM yang telah terisi
+Halaman_kelola_UMKM --> Pengguna: Menampilkan form dengan data\nUMKM yang telah terisi
 deactivate Halaman_kelola_UMKM
 
-Pengguna -> Halaman_kelola_UMKM: Mengubah data pada form & klik "Update"
+Pengguna -> Halaman_kelola_UMKM: Mengubah data pada form\n& klik "Update"
 activate Halaman_kelola_UMKM
 
-Halaman_kelola_UMKM -> Controller: Meneruskan data UMKM yang telah diubah
+Halaman_kelola_UMKM -> Controller: Meneruskan data UMKM\nyang telah diubah
 activate Controller
 
-Controller -> Entity: Panggil fungsi validasi(data_umkm_diubah)
+Controller -> Entity: Panggil fungsi validasi\n(data_umkm_diubah)
 activate Entity
-Entity -> Entity: Melakukan validasi data form
-Entity --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
+Entity -> Entity: Melakukan validasi\ndata form
+Entity --> Controller: Mengembalikan hasil validasi\n(valid / tidak valid)
 deactivate Entity
 
 alt Data Valid
-    Controller -> Entity: Panggil fungsi updateDataUMKM(data_umkm_diubah)
+    Controller -> Entity: Panggil fungsi updateDataUMKM\n(data_umkm_diubah)
     activate Entity
-    Entity -> Entity: Memperbarui data UMKM di database
-    Entity --> Controller: Konfirmasi data telah diperbarui
+    Entity -> Entity: Memperbarui data UMKM\ndi database
+    Entity --> Controller: Konfirmasi data\ntelah diperbarui
     deactivate Entity
     
     Controller --> Halaman_kelola_UMKM: Respon sukses
     deactivate Controller
     
-    Halaman_kelola_UMKM --> Pengguna: Notifikasi "Data berhasil diperbarui" & kembali ke halaman daftar
+    Halaman_kelola_UMKM --> Pengguna: Notifikasi "Data berhasil diperbarui"\n& kembali ke halaman daftar
     deactivate Halaman_kelola_UMKM
 else Data Tidak Valid
-    Controller --> Halaman_kelola_UMKM: Respon gagal dengan pesan error validasi
+    Controller --> Halaman_kelola_UMKM: Respon gagal dengan\npesan error validasi
     deactivate Controller
     
-    Halaman_kelola_UMKM --> Pengguna: Menampilkan pesan error di form edit
+    Halaman_kelola_UMKM --> Pengguna: Menampilkan pesan error\ndi form edit
     deactivate Halaman_kelola_UMKM
 end
 

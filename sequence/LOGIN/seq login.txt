@@ -1,5 +1,17 @@
 @startuml
 !theme materia
+scale max 1920 width
+
+skinparam defaultFontSize 40
+skinparam ParticipantPadding 30
+skinparam BoxPadding 40
+skinparam ActorPadding 20
+skinparam ActorFontSize 40
+skinparam ParticipantFontSize 40
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceLifeLineBorderColor Black
+skinparam SequenceLifeLineBorderThickness 2
+
 
 title Sequence Diagram - Proses Login (Pola MVC)
 hide footbox
@@ -9,36 +21,36 @@ boundary "Halaman_Login" as Halaman_Login
 control "Controller" as Controller
 entity "Entity" as Entity
 
-Pengguna -> Halaman_Login: Mengakses halaman login
+Pengguna -> Halaman_Login: Mengakses halaman\nlogin
 activate Halaman_Login
-Halaman_Login --> Pengguna: Menampilkan halaman login
+Halaman_Login --> Pengguna: Menampilkan halaman\nlogin
 deactivate Halaman_Login
 
-Pengguna -> Halaman_Login: Input username & password, lalu klik login
+Pengguna -> Halaman_Login: Input username & password,\nlalu klik login
 activate Halaman_Login
 
-Halaman_Login -> Controller: Meneruskan permintaan login (username, password)
+Halaman_Login -> Controller: Meneruskan permintaan login\n(username, password)
 activate Controller
 
-Controller -> Entity: Panggil fungsi autentikasi(username, password)
+Controller -> Entity: Panggil fungsi autentikasi\n(username, password)
 activate Entity
 
 Entity -> Entity: Validasi kredensial pengguna\n(berinteraksi dengan database)
 
-Entity --> Controller: Mengembalikan hasil autentikasi (berhasil / gagal)
+Entity --> Controller: Mengembalikan hasil autentikasi\n(berhasil / gagal)
 deactivate Entity
 
 alt Autentikasi Berhasil
-    Controller --> Halaman_Login: Respon sukses, arahkan ke dashboard
+    Controller --> Halaman_Login: Respon sukses,\narahkan ke dashboard
     deactivate Controller
     
-    Halaman_Login --> Pengguna: Menampilkan halaman Dashboard
+    Halaman_Login --> Pengguna: Menampilkan halaman\nDashboard
     deactivate Halaman_Login
 else Autentikasi Gagal
-    Controller --> Halaman_Login: Respon gagal dengan pesan error
+    Controller --> Halaman_Login: Respon gagal dengan\npesan error
     deactivate Controller
     
-    Halaman_Login --> Pengguna: Menampilkan pesan "Username atau password salah"
+    Halaman_Login --> Pengguna: Menampilkan pesan\n"Username atau password salah"
     deactivate Halaman_Login
 end
 

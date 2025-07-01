@@ -1,5 +1,15 @@
 @startuml
 !theme materia
+skinparam defaultFontSize 40
+scale max 1920 width
+skinparam ParticipantPadding 30
+skinparam BoxPadding 40
+skinparam ActorPadding 20
+skinparam ActorFontSize 40
+skinparam ParticipantFontSize 40
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceLifeLineBorderColor Black
+skinparam SequenceLifeLineBorderThickness 2
 
 title Sequence Diagram - Approval Reimbursement Kegiatan UMKM (Pola MVC)
 hide footbox
@@ -9,71 +19,71 @@ boundary "Halaman_kelola_KegiatanUMKM" as Halaman_kelola_KegiatanUMKM
 control "Controller" as Controller
 entity "Entity" as Entity
 
-Pengguna -> Halaman_kelola_KegiatanUMKM: Membuka menu "Kelola Kegiatan UMKM"
+Pengguna -> Halaman_kelola_KegiatanUMKM: Membuka menu\n"Kelola Kegiatan UMKM"
 activate Halaman_kelola_KegiatanUMKM
 
-Halaman_kelola_KegiatanUMKM -> Controller: Minta daftar kegiatan (status "Requested")
+Halaman_kelola_KegiatanUMKM -> Controller: Minta daftar kegiatan\n(status "Requested")
 activate Controller
 
-Controller -> Entity: Panggil fungsi getKegiatanByStatus("Requested")
+Controller -> Entity: Panggil fungsi getKegiatanByStatus\n("Requested")
 activate Entity
-Entity -> Entity: Mengambil daftar kegiatan dari database
-Entity --> Controller: Mengembalikan daftar kegiatan
+Entity -> Entity: Mengambil daftar kegiatan\ndari database
+Entity --> Controller: Mengembalikan daftar\nkegiatan
 deactivate Entity
 
-Controller --> Halaman_kelola_KegiatanUMKM: Meneruskan daftar kegiatan
+Controller --> Halaman_kelola_KegiatanUMKM: Meneruskan daftar\nkegiatan
 deactivate Controller
 
-Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan daftar kegiatan
+Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan daftar\nkegiatan
 deactivate Halaman_kelola_KegiatanUMKM
 
-Pengguna -> Halaman_kelola_KegiatanUMKM: Memilih kegiatan & klik "Detail Pengajuan"
+Pengguna -> Halaman_kelola_KegiatanUMKM: Memilih kegiatan &\nklik "Detail Pengajuan"
 activate Halaman_kelola_KegiatanUMKM
 
-Halaman_kelola_KegiatanUMKM -> Controller: Minta detail kegiatan (berdasarkan ID)
+Halaman_kelola_KegiatanUMKM -> Controller: Minta detail kegiatan\n(berdasarkan ID)
 activate Controller
-Controller -> Entity: Panggil fungsi getDetailKegiatan(ID)
+Controller -> Entity: Panggil fungsi\ngetDetailKegiatan(ID)
 activate Entity
-Entity --> Controller: Mengembalikan detail kegiatan
+Entity --> Controller: Mengembalikan detail\nkegiatan
 deactivate Entity
-Controller --> Halaman_kelola_KegiatanUMKM: Meneruskan detail kegiatan
+Controller --> Halaman_kelola_KegiatanUMKM: Meneruskan detail\nkegiatan
 deactivate Controller
 
-Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan detail & tombol aksi ("Setujui", "Tolak")
+Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan detail & tombol\naksi ("Setujui", "Tolak")
 deactivate Halaman_kelola_KegiatanUMKM
 
 alt "Setujui" diklik
-    Pengguna -> Halaman_kelola_KegiatanUMKM: Klik tombol "Setujui"
+    Pengguna -> Halaman_kelola_KegiatanUMKM: Klik tombol\n"Setujui"
     activate Halaman_kelola_KegiatanUMKM
-    Halaman_kelola_KegiatanUMKM -> Controller: Minta persetujuan kegiatan (ID)
+    Halaman_kelola_KegiatanUMKM -> Controller: Minta persetujuan\nkegiatan (ID)
     activate Controller
-    Controller -> Entity: Panggil fungsi updateStatus(ID, "Approved")
+    Controller -> Entity: Panggil fungsi updateStatus\n(ID, "Approved")
     activate Entity
-    Entity -> Entity: Memperbarui status di database
-    Entity --> Controller: Konfirmasi status diperbarui
+    Entity -> Entity: Memperbarui status\ndi database
+    Entity --> Controller: Konfirmasi status\ndiperbarui
     deactivate Entity
     Controller --> Halaman_kelola_KegiatanUMKM: Respon sukses
     deactivate Controller
-    Halaman_kelola_KegiatanUMKM --> Pengguna: Notifikasi "Reimbursement telah disetujui" & perbarui daftar
+    Halaman_kelola_KegiatanUMKM --> Pengguna: Notifikasi "Reimbursement telah disetujui"\n& perbarui daftar
     deactivate Halaman_kelola_KegiatanUMKM
 else "Tolak" diklik
-    Pengguna -> Halaman_kelola_KegiatanUMKM: Klik tombol "Tolak"
+    Pengguna -> Halaman_kelola_KegiatanUMKM: Klik tombol\n"Tolak"
     activate Halaman_kelola_KegiatanUMKM
-    Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan input alasan penolakan
+    Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan input\nalasan penolakan
     deactivate Halaman_kelola_KegiatanUMKM
 
-    Pengguna -> Halaman_kelola_KegiatanUMKM: Mengisi alasan & konfirmasi penolakan
+    Pengguna -> Halaman_kelola_KegiatanUMKM: Mengisi alasan &\nkonfirmasi penolakan
     activate Halaman_kelola_KegiatanUMKM
-    Halaman_kelola_KegiatanUMKM -> Controller: Minta penolakan kegiatan (ID, alasan)
+    Halaman_kelola_KegiatanUMKM -> Controller: Minta penolakan kegiatan\n(ID, alasan)
     activate Controller
-    Controller -> Entity: Panggil fungsi updateStatus(ID, "Declined", alasan)
+    Controller -> Entity: Panggil fungsi updateStatus\n(ID, "Declined", alasan)
     activate Entity
-    Entity -> Entity: Memperbarui status & menyimpan alasan di database
-    Entity --> Controller: Konfirmasi status diperbarui
+    Entity -> Entity: Memperbarui status &\nmenyimpan alasan di database
+    Entity --> Controller: Konfirmasi status\ndiperbarui
     deactivate Entity
     Controller --> Halaman_kelola_KegiatanUMKM: Respon sukses
     deactivate Controller
-    Halaman_kelola_KegiatanUMKM --> Pengguna: Notifikasi "Reimbursement telah ditolak" & perbarui daftar
+    Halaman_kelola_KegiatanUMKM --> Pengguna: Notifikasi "Reimbursement telah ditolak"\n& perbarui daftar
     deactivate Halaman_kelola_KegiatanUMKM
 end
 

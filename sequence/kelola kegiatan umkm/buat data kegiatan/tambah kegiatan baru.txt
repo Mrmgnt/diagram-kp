@@ -1,5 +1,16 @@
 @startuml
 !theme materia
+scale max 1920 width
+skinparam defaultFontSize 40
+skinparam ParticipantPadding 30
+skinparam BoxPadding 40
+skinparam ActorPadding 20
+skinparam ActorFontSize 40
+skinparam ParticipantFontSize 40
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceLifeLineBorderColor Black
+skinparam SequenceLifeLineBorderThickness 2
+
 
 title Sequence Diagram - Tambah Data Kegiatan UMKM (Pola MVC)
 hide footbox
@@ -9,40 +20,40 @@ boundary "Halaman_kelola_KegiatanUMKM" as Halaman_kelola_KegiatanUMKM
 control "Controller" as Controller
 entity "Entity" as Entity
 
-Pengguna -> Halaman_kelola_KegiatanUMKM: Memilih opsi "Tambah Kegiatan Baru"
+Pengguna -> Halaman_kelola_KegiatanUMKM: Memilih opsi\n"Tambah Kegiatan Baru"
 activate Halaman_kelola_KegiatanUMKM
-Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan form tambah kegiatan
+Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan form\ntambah kegiatan
 deactivate Halaman_kelola_KegiatanUMKM
 
-Pengguna -> Halaman_kelola_KegiatanUMKM: Mengisi data form & klik "Simpan"
+Pengguna -> Halaman_kelola_KegiatanUMKM: Mengisi data form\n& klik "Simpan"
 activate Halaman_kelola_KegiatanUMKM
 
-Halaman_kelola_KegiatanUMKM -> Controller: Meneruskan data kegiatan baru
+Halaman_kelola_KegiatanUMKM -> Controller: Meneruskan data\nkegiatan baru
 activate Controller
 
-Controller -> Entity: Panggil fungsi validasi(data_kegiatan)
+Controller -> Entity: Panggil fungsi\nvalidasi(data_kegiatan)
 activate Entity
-Entity -> Entity: Melakukan validasi data form
-Entity --> Controller: Mengembalikan hasil validasi (valid / tidak valid)
+Entity -> Entity: Melakukan validasi\ndata form
+Entity --> Controller: Mengembalikan hasil validasi\n(valid / tidak valid)
 deactivate Entity
 
 alt Data Valid
-    Controller -> Entity: Panggil fungsi simpanDataKegiatan(data_kegiatan)
+    Controller -> Entity: Panggil fungsi\nsimpanDataKegiatan(data_kegiatan)
     activate Entity
-    Entity -> Entity: Menyimpan data kegiatan baru ke database
-    Entity --> Controller: Konfirmasi data telah disimpan
+    Entity -> Entity: Menyimpan data kegiatan\nbaru ke database
+    Entity --> Controller: Konfirmasi data\ntelah disimpan
     deactivate Entity
     
     Controller --> Halaman_kelola_KegiatanUMKM: Respon sukses
     deactivate Controller
     
-    Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan notifikasi "Data Kegiatan UMKM berhasil ditambahkan"
+    Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan notifikasi "Data Kegiatan\nUMKM berhasil ditambahkan"
     deactivate Halaman_kelola_KegiatanUMKM
 else Data Tidak Valid
-    Controller --> Halaman_kelola_KegiatanUMKM: Respon gagal dengan pesan error validasi
+    Controller --> Halaman_kelola_KegiatanUMKM: Respon gagal dengan\npesan error validasi
     deactivate Controller
     
-    Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan pesan error di form
+    Halaman_kelola_KegiatanUMKM --> Pengguna: Menampilkan pesan\nerror di form
     deactivate Halaman_kelola_KegiatanUMKM
 end
 

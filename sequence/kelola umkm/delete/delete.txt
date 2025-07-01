@@ -1,5 +1,15 @@
 @startuml
 !theme materia
+scale max 1920 width
+skinparam defaultFontSize 40
+skinparam ParticipantPadding 30
+skinparam BoxPadding 40
+skinparam ActorPadding 20
+skinparam ActorFontSize 40
+skinparam ParticipantFontSize 40
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceLifeLineBorderColor Black
+skinparam SequenceLifeLineBorderThickness 2
 
 title Sequence Diagram - Hapus Data UMKM (Pola MVC)
 hide footbox
@@ -9,35 +19,34 @@ boundary "Halaman_kelola_UMKM" as Halaman_kelola_UMKM
 control "Controller" as Controller
 entity "Entity" as Entity
 
-Pengguna -> Halaman_kelola_UMKM: Memilih UMKM & klik tombol "Hapus"
+Pengguna -> Halaman_kelola_UMKM: Memilih UMKM &\nklik tombol "Hapus"
 activate Halaman_kelola_UMKM
 
-Halaman_kelola_UMKM --> Pengguna: Menampilkan dialog konfirmasi "Anda yakin?"
+Halaman_kelola_UMKM --> Pengguna: Menampilkan dialog konfirmasi\n"Anda yakin?"
 
 alt Konfirmasi "Ya"
-    Pengguna -> Halaman_kelola_UMKM: Klik tombol konfirmasi "Ya"
+    Pengguna -> Halaman_kelola_UMKM: Klik tombol\nkonfirmasi "Ya"
     
-    Halaman_kelola_UMKM -> Controller: Minta hapus data UMKM (berdasarkan ID)
+    Halaman_kelola_UMKM -> Controller: Minta hapus data UMKM\n(berdasarkan ID)
     activate Controller
 
-    Controller -> Entity: Panggil fungsi hapusDataUMKM(ID)
+    Controller -> Entity: Panggil fungsi\nhapusDataUMKM(ID)
     activate Entity
     
-    Entity -> Entity: Menghapus data UMKM dari database
-    Entity --> Controller: Konfirmasi data telah dihapus
+    Entity -> Entity: Menghapus data UMKM\ndari database
+    Entity --> Controller: Konfirmasi data\ntelah dihapus
     deactivate Entity
     
     Controller --> Halaman_kelola_UMKM: Respon sukses
     deactivate Controller
     
-    Halaman_kelola_UMKM --> Pengguna: Notifikasi "Data berhasil dihapus" & perbarui daftar
+    Halaman_kelola_UMKM --> Pengguna: Notifikasi "Data berhasil dihapus"\n& perbarui daftar
     deactivate Halaman_kelola_UMKM
 else Konfirmasi "Tidak / Batal"
-    Pengguna -> Halaman_kelola_UMKM: Klik tombol "Tidak / Batal"
+    Pengguna -> Halaman_kelola_UMKM: Klik tombol\n"Tidak / Batal"
     
-    Halaman_kelola_UMKM --> Pengguna: Menutup dialog konfirmasi
+    Halaman_kelola_UMKM --> Pengguna: Menutup dialog\nkonfirmasi
     deactivate Halaman_kelola_UMKM
 end
-
 
 @enduml

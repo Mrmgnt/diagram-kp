@@ -1,5 +1,15 @@
 @startuml
 !theme materia
+skinparam defaultFontSize 40
+scale max 1920 width
+skinparam ParticipantPadding 30
+skinparam BoxPadding 40
+skinparam ActorPadding 20
+skinparam ActorFontSize 40
+skinparam ParticipantFontSize 40
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceLifeLineBorderColor Black
+skinparam SequenceLifeLineBorderThickness 2
 
 title Sequence Diagram - Menampilkan Laporan (Pola MVC)
 hide footbox
@@ -9,41 +19,41 @@ boundary "Halaman_Laporan" as Halaman_Laporan
 control "Controller" as Controller
 entity "Entity" as Entity
 
-Pengguna -> Halaman_Laporan: Membuka menu/halaman "Laporan"
+Pengguna -> Halaman_Laporan: Membuka menu/halaman\n"Laporan"
 activate Halaman_Laporan
-Halaman_Laporan --> Pengguna: Menampilkan opsi jenis laporan & filter
+Halaman_Laporan --> Pengguna: Menampilkan opsi jenis\nlaporan & filter
 deactivate Halaman_Laporan
 
-Pengguna -> Halaman_Laporan: Memilih jenis laporan & mengisi parameter/filter
+Pengguna -> Halaman_Laporan: Memilih jenis laporan &\nmengisi parameter/filter
 activate Halaman_Laporan
 
-Halaman_Laporan -> Controller: Minta generate laporan (dengan parameter)
+Halaman_Laporan -> Controller: Minta generate laporan\n(dengan parameter)
 activate Controller
 
-Controller -> Entity: Panggil fungsi getLaporanData(parameter)
+Controller -> Entity: Panggil fungsi\ngetLaporanData(parameter)
 activate Entity
-Entity -> Entity: Mengumpulkan & memproses data dari database
-Entity --> Controller: Mengembalikan data laporan yang sudah jadi
+Entity -> Entity: Mengumpulkan & memproses\ndata dari database
+Entity --> Controller: Mengembalikan data laporan\nyang sudah jadi
 deactivate Entity
 
-Controller --> Halaman_Laporan: Meneruskan data laporan
+Controller --> Halaman_Laporan: Meneruskan data\nlaporan
 deactivate Controller
 
-Halaman_Laporan --> Pengguna: Menampilkan hasil laporan di layar & opsi ekspor
+Halaman_Laporan --> Pengguna: Menampilkan hasil laporan\ndi layar & opsi ekspor
 deactivate Halaman_Laporan
 
 alt Ingin mengunduh laporan
-    Pengguna -> Halaman_Laporan: Klik tombol "Unduh" / "Ekspor"
+    Pengguna -> Halaman_Laporan: Klik tombol\n"Unduh" / "Ekspor"
     activate Halaman_Laporan
     
-    Halaman_Laporan -> Controller: Minta ekspor laporan (data yang sama)
+    Halaman_Laporan -> Controller: Minta ekspor laporan\n(data yang sama)
     activate Controller
     
-    Controller -> Controller: Membuat file laporan (misal: PDF, Excel)
-    Controller --> Halaman_Laporan: Mengirim file yang telah digenerate
+    Controller -> Controller: Membuat file laporan\n(misal: PDF, Excel)
+    Controller --> Halaman_Laporan: Mengirim file yang\ntelah digenerate
     deactivate Controller
     
-    Halaman_Laporan --> Pengguna: Menyediakan file laporan untuk diunduh
+    Halaman_Laporan --> Pengguna: Menyediakan file laporan\nuntuk diunduh
     deactivate Halaman_Laporan
 end
 

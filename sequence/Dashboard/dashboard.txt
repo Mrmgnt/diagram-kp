@@ -1,5 +1,15 @@
 @startuml
 !theme materia
+scale max 1920 width
+skinparam defaultFontSize 40
+skinparam ParticipantPadding 30
+skinparam BoxPadding 40
+skinparam ActorPadding 20
+skinparam ActorFontSize 40
+skinparam ParticipantFontSize 40
+skinparam SequenceParticipantBorderThickness 2
+skinparam SequenceLifeLineBorderColor Black
+skinparam SequenceLifeLineBorderThickness 2
 
 title Sequence Diagram - Menampilkan Dashboard (Pola MVC)
 hide footbox
@@ -9,34 +19,34 @@ boundary "Halaman_Dashboard" as Halaman_Dashboard
 control "Controller" as Controller
 entity "Entity" as Entity
 
-Pengguna -> Halaman_Dashboard: Membuka menu/halaman "Dashboard"
+Pengguna -> Halaman_Dashboard: Membuka menu/halaman\n"Dashboard"
 activate Halaman_Dashboard
 
-Halaman_Dashboard -> Controller: Minta data untuk dashboard
+Halaman_Dashboard -> Controller: Minta data\nuntuk dashboard
 activate Controller
 
-Controller -> Entity: Panggil fungsi getDashboardData()
+Controller -> Entity: Panggil fungsi\ngetDashboardData()
 activate Entity
-Entity -> Entity: Mengambil & mengolah data dari berbagai sumber
-Entity --> Controller: Mengembalikan data yang sudah diproses
+Entity -> Entity: Mengambil & mengolah data\ndari berbagai sumber
+Entity --> Controller: Mengembalikan data\nyang sudah diproses
 deactivate Entity
 
-Controller --> Halaman_Dashboard: Meneruskan data dashboard
+Controller --> Halaman_Dashboard: Meneruskan data\ndashbord
 deactivate Controller
 
-Halaman_Dashboard --> Pengguna: Menampilkan halaman Dashboard dengan visualisasi data
+Halaman_Dashboard --> Pengguna: Menampilkan halaman Dashboard\ndengan visualisasi data
 deactivate Halaman_Dashboard
 
-Pengguna -> Halaman_Dashboard: Berinteraksi dengan filter (contoh: rentang tanggal)
+Pengguna -> Halaman_Dashboard: Berinteraksi dengan filter\n(contoh: rentang tanggal)
 activate Halaman_Dashboard
 
-Halaman_Dashboard -> Controller: Minta data dashboard dengan filter baru
+Halaman_Dashboard -> Controller: Minta data dashboard\ndengan filter baru
 activate Controller
 ' ... proses pengambilan data dengan filter baru akan berulang ...'
-Controller --> Halaman_Dashboard: Meneruskan data yang sudah difilter
+Controller --> Halaman_Dashboard: Meneruskan data\nyang sudah difilter
 deactivate Controller
 
-Halaman_Dashboard --> Pengguna: Memperbarui visualisasi data di dashboard
+Halaman_Dashboard --> Pengguna: Memperbarui visualisasi\ndata di dashboard
 deactivate Halaman_Dashboard
 
 @enduml
