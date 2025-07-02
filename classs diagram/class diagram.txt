@@ -1,0 +1,127 @@
+@startuml
+' --- Skin Parameters for Black & White and Tidiness ---
+skinparam monochrome true
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam shadowing false
+skinparam defaultFontSize 30
+skinparam class {
+  BorderColor Black
+  BackgroundColor White
+  ArrowColor Black
+}
+
+title Class Diagram - Sistem Digitalisasi Rumah BUMN
+
+' --- Column 1: User Roles ---
+class User {
+  - username: String
+  - password: String
+  - nama_lengkap: String
+  - email: String
+  + login()
+  + logout()
+}
+
+class PengelolaRumahBUMN {
+  + tambahUMKM(data: UMKM)
+  + editUMKM(id: int)
+  + hapusUMKM(id: int)
+  + tambahKegiatan(data: Kegiatan)
+  + ajukanReimbursement(id_kegiatan: int)
+}
+
+class StafKantorPusat {
+  + lihatPengajuanReimbursement()
+  + approveReimbursement(id: int)
+  + rejectReimbursement(id: int, alasan: String)
+}
+
+' --- Column 2: Main Entities ---
+class UMKM {
+  - id_umkm: int
+  - nama_umkm: String
+  - jenis_usaha: String
+  - alamat: String
+  + simpan()
+  + update()
+  + hapus()
+}
+
+class Kegiatan {
+  - id_kegiatan: int
+  - nama_kegiatan: String
+  - tanggal: Date
+  - status: String
+  + simpan()
+  + update()
+  + dokumentasi()
+}
+
+class Reimbursement {
+  - id_reimbursement: int
+  - nominal: double
+  - tanggal_pengajuan: Date
+  - status: String
+  + ajukan()
+  + approve()
+  + reject()
+}
+
+class Dokumen {
+  - id_dokumen: int
+  - nama_file: String
+  - path_file: String
+  + upload()
+  + download()
+}
+
+' --- Column 3: Controllers ---
+class UMKMController {
+  + create(data)
+  + update(id, data)
+  + delete(id)
+}
+
+class KegiatanController {
+  + create(data)
+  + update(id, data)
+  + generateReimbursement(id)
+}
+
+class ReimbursementController {
+  + showAllPending()
+  + approve(id)
+  + reject(id, alasan)
+}
+
+' --- Relationships ---
+User <|-- PengelolaRumahBUMN
+User <|-- StafKantorPusat
+
+PengelolaRumahBUMN "1" -- "*" UMKM : Mengelola >
+PengelolaRumahBUMN "1" -- "*" Kegiatan : Mengadakan >
+
+StafKantorPusat "1" -- "*" Reimbursement : Memproses >
+
+Kegiatan "1" -- "1" Reimbursement : Mengajukan >
+Kegiatan "1" -- "*" Dokumen : Memiliki >
+Reimbursement "1" -- "*" Dokumen : Melampirkan >
+
+UMKMController .> UMKM
+KegiatanController .> Kegiatan
+ReimbursementController .> Reimbursement
+
+' --- Layout Hints ---
+User -[hidden]R- UMKM
+UMKM -[hidden]R- UMKMController
+
+PengelolaRumahBUMN -[hidden]D- StafKantorPusat
+UMKM -[hidden]D- Kegiatan
+Kegiatan -[hidden]D- Reimbursement
+Reimbursement -[hidden]D- Dokumen
+
+UMKMController -[hidden]D- KegiatanController
+KegiatanController -[hidden]D- ReimbursementController
+
+@enduml
