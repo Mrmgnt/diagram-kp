@@ -1,19 +1,17 @@
 @startuml
-' --- Skin Parameters for Black & White and Tidiness ---
+
 skinparam monochrome true
+skinparam defaultFontSize 29
 skinparam classAttributeIconSize 0
-skinparam linetype ortho
+skinparam classBorderColor black
+skinparam classBackgroundColor white
+skinparam classArrowColor black
 skinparam shadowing false
-skinparam defaultFontSize 30
-skinparam class {
-  BorderColor Black
-  BackgroundColor White
-  ArrowColor Black
-}
+skinparam linetype ortho
+skinparam classFontStyle plain
+top to bottom direction
 
-title Class Diagram - Sistem Digitalisasi Rumah BUMN
-
-' --- Column 1: User Roles ---
+' === LAPISAN 1: USER & CHILD ===
 class User {
   - username: String
   - password: String
@@ -37,7 +35,10 @@ class StafKantorPusat {
   + rejectReimbursement(id: int, alasan: String)
 }
 
-' --- Column 2: Main Entities ---
+User <|-- PengelolaRumahBUMN
+User <|-- StafKantorPusat
+
+' === LAPISAN 2: UMKM ===
 class UMKM {
   - id_umkm: int
   - nama_umkm: String
@@ -48,6 +49,17 @@ class UMKM {
   + hapus()
 }
 
+PengelolaRumahBUMN --> UMKM : mengelola
+
+class UMKMController {
+  + create(data)
+  + update(id, data)
+  + delete(id)
+}
+
+UMKMController --> UMKM
+
+' === LAPISAN 3: KEGIATAN ===
 class Kegiatan {
   - id_kegiatan: int
   - nama_kegiatan: String
@@ -58,6 +70,17 @@ class Kegiatan {
   + dokumentasi()
 }
 
+UMKM --> Kegiatan : mengadakan
+
+class KegiatanController {
+  + create(data)
+  + update(id, data)
+  + generateReimbursement(id)
+}
+
+KegiatanController --> Kegiatan
+
+' === LAPISAN 4: REIMBURSEMENT ===
 class Reimbursement {
   - id_reimbursement: int
   - nominal: double
@@ -68,6 +91,17 @@ class Reimbursement {
   + reject()
 }
 
+Kegiatan --> Reimbursement : mengajukan
+
+class ReimbursementController {
+  + showAllPending()
+  + approve(id)
+  + reject(id, alasan)
+}
+
+ReimbursementController --> Reimbursement
+
+' === LAPISAN 5: DOKUMEN ===
 class Dokumen {
   - id_dokumen: int
   - nama_file: String
@@ -76,52 +110,6 @@ class Dokumen {
   + download()
 }
 
-' --- Column 3: Controllers ---
-class UMKMController {
-  + create(data)
-  + update(id, data)
-  + delete(id)
-}
-
-class KegiatanController {
-  + create(data)
-  + update(id, data)
-  + generateReimbursement(id)
-}
-
-class ReimbursementController {
-  + showAllPending()
-  + approve(id)
-  + reject(id, alasan)
-}
-
-' --- Relationships ---
-User <|-- PengelolaRumahBUMN
-User <|-- StafKantorPusat
-
-PengelolaRumahBUMN "1" -- "*" UMKM : Mengelola >
-PengelolaRumahBUMN "1" -- "*" Kegiatan : Mengadakan >
-
-StafKantorPusat "1" -- "*" Reimbursement : Memproses >
-
-Kegiatan "1" -- "1" Reimbursement : Mengajukan >
-Kegiatan "1" -- "*" Dokumen : Memiliki >
-Reimbursement "1" -- "*" Dokumen : Melampirkan >
-
-UMKMController .> UMKM
-KegiatanController .> Kegiatan
-ReimbursementController .> Reimbursement
-
-' --- Layout Hints ---
-User -[hidden]R- UMKM
-UMKM -[hidden]R- UMKMController
-
-PengelolaRumahBUMN -[hidden]D- StafKantorPusat
-UMKM -[hidden]D- Kegiatan
-Kegiatan -[hidden]D- Reimbursement
-Reimbursement -[hidden]D- Dokumen
-
-UMKMController -[hidden]D- KegiatanController
-KegiatanController -[hidden]D- ReimbursementController
+Reimbursement o-- "*" Dokumen : melampirkan
 
 @enduml
